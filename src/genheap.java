@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 public class genheap<T extends Comparable<T>> {
-    public ArrayList<T> heap;
+    private ArrayList<T> heap;
 
     public genheap() {
         this.heap = new ArrayList<T>();
@@ -9,17 +9,13 @@ public class genheap<T extends Comparable<T>> {
     }
 
     public void add(T value) {
-        // System.out.println("hi");
         this.heap.add(value);
         this.heapifyup(this.heap.size() - 1);
     }
 
     public void remove() {
-
-
         this.heap.set(0, this.heap.get(this.heap.size() - 1));
         this.heap.remove(this.heap.size() - 1);
-
         this.heapifydown(0);
     }
 
@@ -31,17 +27,14 @@ public class genheap<T extends Comparable<T>> {
         if (this.heap.size() == 0) {
             return null;
         }
-
         return this.heap.get(0);
     }
 
+    public int getLength (){
+        return heap.size();
+    }
+
     private void heapifydown(int i) {
-
-        //System.out.println("hi");
-
-        // for(int i = 0; i < heap.size(); i ++) {
-        //     System.out.println(heap.get(i));
-        //   }
         int left = i * 2 + 1;
         int right = left + 1;
 
@@ -71,24 +64,11 @@ public class genheap<T extends Comparable<T>> {
         }
 
 
-
-
-
-
-
-
-
     }
 
-       /* for(int i = 0; i < heap.size(); i ++) {
-            System.out.println(heap.get(i));
-        }*/
 
 
     private void heapifyup(int in) {
-//seperate base case in <=0
-        //set parent index
-
         if (in > 0 && this.heap.get(in).compareTo(this.heap.get((in - 1) / 2)) == -1) {
             T inttemp = this.heap.get((in - 1) / 2);
             this.heap.set((in - 1) / 2, this.heap.get(in));

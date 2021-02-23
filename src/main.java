@@ -2,7 +2,9 @@ import java.io.*;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.io.FileReader;
+import java.util.HashMap;
 import java.util.Scanner;
+import java.util.Set;
 
 public class main {
 
@@ -37,35 +39,26 @@ public class main {
 
         String contents = sb.toString();
 
-       // System.out.println(contents);
-
-        huff.compress(contents);
-
+        HashMap<Character, String> dictionary = huff.compress(contents);
+        Set<Character> keys = dictionary.keySet();
 
 
-
-
-
+        for (Character temp : keys) {
+            if(temp.equals('\n')){
+                writer.println("enter" + ": " + dictionary.get(temp));
+            }else if(temp.equals('\t') ){
+                writer.println("tab" + ": " + dictionary.get(temp));
+            }else if(temp.equals(' ') ){
+                writer.println("space" + ": " + dictionary.get(temp));
+            }else {
+                writer.println(temp + ": " + dictionary.get(temp));
+            }
+        }
 
 /*
-        genheap obj = new genheap();
 
-        int num = scan.nextInt();
-
-        for(int i = 0; i < num; i++) {
-           obj.add(scan.nextInt());
-        }
-
-
-       obj.remove();
-
-        for(int i = 0; i < num-1; i++) {
-            System.out.println(obj.heap.get(i));
-        }
 
  */
-
-
 
 
 
