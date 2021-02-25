@@ -2,7 +2,11 @@ import java.util.*;
 
 public class Huffman {
 
-
+    /**
+     * intakes a string of text which is compressed using a huffman tree and the letter path is returned in a dictionary
+     * @param in the inputted text to be compressed
+     * @return dictionary of path to letters in huffman tree
+     */
     public HashMap<Character, String> compress(String in){
 
         HashMap<Character, Integer> freqtbl = createfreqtbl(in);
@@ -33,15 +37,13 @@ public class Huffman {
             heap.add(newnode);
         }
 
+        //creates tree
         heapHuffmanNode root = createHuffmanTree(heap);
 
+        //creates dictionary
         HashMap<Character, String> dictionary = new HashMap<>();
         createDictionary(root, "", dictionary );
 
-        for(int i = 0; i < dictionary.size(); i++){
-            Character letter = sortedlist.get(i).letter;
-            System.out.println(letter + ": " + dictionary.get(letter));
-        }
 
 
         return dictionary;
@@ -49,7 +51,7 @@ public class Huffman {
 
 
 
-    public HashMap<Character, Integer> createfreqtbl (String in){
+    private HashMap<Character, Integer> createfreqtbl (String in){
         HashMap<Character, Integer> freqtbl = new HashMap<>();
 
         for(int i = 0; i < in.length(); i++){
@@ -62,7 +64,7 @@ public class Huffman {
         return freqtbl;
     }
 
-    public heapHuffmanNode createHuffmanTree (genheap<heapHuffmanNode> heap){
+    private heapHuffmanNode createHuffmanTree (genheap<heapHuffmanNode> heap){
         heapHuffmanNode root = null;
         while(heap.getLength() != 1){
 
@@ -86,10 +88,11 @@ public class Huffman {
     }
 
 
-    public void createDictionary (heapHuffmanNode in, String path, HashMap<Character, String> dict){
+    private void createDictionary (heapHuffmanNode in, String path, HashMap<Character, String> dict){
 
         heapHuffmanNode current = in;
 
+        //goes as far left as possible then as far right as possible. when reaches leaf it adds the letter + path to the dictionary
        if(current.left != null && current.right != null){
            createDictionary(in.left, path + "0", dict);
            createDictionary(in.right, path + "1", dict);
@@ -98,7 +101,7 @@ public class Huffman {
        }
     }
 
-
+  //the node class used to sort lexographically
     private class BSTHuffmanNode implements Comparable<BSTHuffmanNode> {
         public Character letter;
         public int frequency;
@@ -108,6 +111,8 @@ public class Huffman {
             return letter.compareTo(in.letter);
         }
     }
+
+    //the node class used to sort by frequency and in the tree
     private class heapHuffmanNode implements Comparable<heapHuffmanNode> {
         public Character letter;
         public int frequency;

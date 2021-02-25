@@ -8,30 +8,31 @@ import java.util.Set;
 
 public class main {
 
+
     public static void main (String[] args) throws IOException{
 
-
-
+        //object to run huffman compression
         Huffman huff = new Huffman();
 
+        //handles command line input
         Scanner scan = new Scanner(System.in);
-
-
         String inputcmd = scan.nextLine();
         String[] cmds = inputcmd.split(" ");
         BufferedReader list = new BufferedReader(new FileReader(cmds[cmds.length-1]));
 
-
-       String outputfilname = "";
+        //determines outputfile name
+        String outputfilname = "";
         for(int i = 0; i < cmds.length; i++){
             if(cmds[i].equals("-o")){
                 outputfilname = cmds[i+1];
             }
         }
-        PrintWriter writer = new PrintWriter(outputfilname);
 
+        //creates outputfile
+        PrintWriter writer = new PrintWriter(outputfilname);
         StringBuilder sb = new StringBuilder();
 
+        //reads file input
         String line = "";
         while((line=list.readLine()) != null) {
             sb.append(line).append("\n");
@@ -42,7 +43,7 @@ public class main {
         HashMap<Character, String> dictionary = huff.compress(contents);
         Set<Character> keys = dictionary.keySet();
 
-
+        //writes dictionary to output file
         for (Character temp : keys) {
             if(temp.equals('\n')){
                 writer.println("enter" + ": " + dictionary.get(temp));
