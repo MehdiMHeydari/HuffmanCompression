@@ -1,10 +1,7 @@
 import java.io.*;
 import java.nio.file.Files;
-import java.util.ArrayList;
+import java.util.*;
 import java.io.FileReader;
-import java.util.HashMap;
-import java.util.Scanner;
-import java.util.Set;
 
 public class main {
 
@@ -41,10 +38,15 @@ public class main {
         String contents = sb.toString();
 
         HashMap<Character, String> dictionary = huff.compress(contents);
-        Set<Character> keys = dictionary.keySet();
+
+        SortedMap<Character, String> myNewMap = new TreeMap<Character, String>(dictionary);
+
+        Set<Character> keys = myNewMap.keySet();
+
 
         //writes dictionary to output file
         for (Character temp : keys) {
+
             if(temp.equals('\n')){
                 writer.println("enter" + ": " + dictionary.get(temp));
             }else if(temp.equals('\t') ){
